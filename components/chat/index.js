@@ -4,8 +4,8 @@ import {
   StyleSheet, View, Text, Image, ScrollView,
   TextInput, TouchableOpacity
 } from 'react-native';
-import firebase from '../config/firebase';
-import api from '../services/axios';
+import firebase from '../../config/firebase';
+import api from '../../services/axios';
 import axios from 'axios';
 
 export default function Chat() {

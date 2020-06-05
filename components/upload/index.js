@@ -7,7 +7,7 @@ import {
   Text, Button, Image
 } from 'react-native';
 
-import firebase from '../config/firebase';
+import firebase from '../../config/firebase';
 
 import { WrapperView, CorrecaoView, Header, Content, Footer, Avatar } from './styles';
 

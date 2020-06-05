@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet, Button } from "react-native";
 import { } from './styles';
 
-import { AuthContext } from '../context';
+import { AuthContext } from '../../context';
 
 import firebase from 'firebase';
 

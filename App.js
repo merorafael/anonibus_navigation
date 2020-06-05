@@ -6,17 +6,16 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createDrawerNavigator } from "@react-navigation/drawer"
 
-import SignIn from './SignIn';
-import CreateAccount from './CreateAccount';
-import Home from './Home';
-import HomeDetails from './Home/details';
-import Profile from './Profile';
-import Chat from './Chat';
-import Upload from './Upload';
+import SignIn from './components/sign-in';
+import CreateAccount from './components/create-account';
+import Home from './components/home';
+import HomeDetails from './components/home/details';
+import Profile from './components/profile';
+import Chat from './components/chat';
+import Upload from './components/upload';
 
-// import Ionicons from 'react-native-vector-icons/Ionicons';
 import { FontAwesome5 } from '@expo/vector-icons';
-
+import { isSignedIn } from './services/authentication'
 import { AuthContext } from './context';
 
 import firebase from './config/firebase';
@@ -69,29 +68,18 @@ const TabsScreen = () => (
   </Tabs.Navigator>
 )
 
-
-
 export default () => {
-
-
-
-
   const [userToken, setUserToken] = React.useState(null);
 
   React.useEffect(() => {
-
-    firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        setUserToken(user)
+    isSignedIn().then((signedIn) => {
+      if (signedIn) {
+        setUserToken('umMontedeCaracteres')
       } else {
         setUserToken(null)
       }
-
     })
-    // 
   }, []);
-
-
 
   const authContext = React.useMemo(() => {
     return {
@@ -109,7 +97,7 @@ export default () => {
             <Drawer.Screen name="Home" component={TabsScreen} />
             <Drawer.Screen name="Profile" component={ProfileStackScreen} />
           </Drawer.Navigator>
-
+          
           :
           <AuthStack.Navigator>
             <AuthStack.Screen
@@ -126,6 +114,5 @@ export default () => {
         }
       </NavigationContainer>
     </AuthContext.Provider>
-
   )
 }
