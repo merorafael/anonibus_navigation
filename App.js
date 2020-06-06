@@ -12,19 +12,14 @@ import Home from './components/home';
 import HomeDetails from './components/home/details';
 import Profile from './components/profile';
 import Chat from './components/chat';
-import Upload from './components/upload';
 
 import { FontAwesome5 } from '@expo/vector-icons';
 import { isSignedIn } from './services/authentication'
 import { AuthContext } from './context';
 
-import firebase from './config/firebase';
-
-
 const AuthStack = createStackNavigator();
 const Tabs = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
-
 
 const HomeStack = createStackNavigator();
 const HomeStackScreen = () => (
@@ -35,9 +30,7 @@ const HomeStackScreen = () => (
 
 )
 
-
 const ProfileStack = createStackNavigator();
-
 const ProfileStackScreen = () => (
   <ProfileStack.Navigator>
     <ProfileStack.Screen name="Profile" component={Profile} />
@@ -64,35 +57,32 @@ const TabsScreen = () => (
     <Tabs.Screen name="Home" component={HomeStackScreen} />
     <Tabs.Screen name="Profile" component={ProfileStackScreen} />
     <Tabs.Screen name="Chat" component={Chat} />
-    <Tabs.Screen name="Upload" component={Upload} />
   </Tabs.Navigator>
 )
 
 export default () => {
-  const [userToken, setUserToken] = React.useState(null);
+  const [signedIn, setSignedIn] = React.useState(false);
 
   React.useEffect(() => {
     isSignedIn().then((signedIn) => {
-      if (signedIn) {
-        setUserToken('umMontedeCaracteres')
-      } else {
-        setUserToken(null)
-      }
+      setSignedIn(signedIn)
     })
   }, []);
 
   const authContext = React.useMemo(() => {
     return {
-      signIn: () => { setUserToken('umMontedeCaracteres') },
-      signUp: () => { setUserToken('umMontedeCaracteres') },
-      signOut: () => { setUserToken(null) },
+      refreshSignInStatus: () => { 
+        isSignedIn().then((signedIn) => {
+          setSignedIn(signedIn)
+        })
+      }
     }
   })
 
   return (
     <AuthContext.Provider value={authContext}>
       <NavigationContainer>
-        {userToken ?
+        {signedIn ?
           <Drawer.Navigator>
             <Drawer.Screen name="Home" component={TabsScreen} />
             <Drawer.Screen name="Profile" component={ProfileStackScreen} />

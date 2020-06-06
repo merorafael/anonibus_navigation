@@ -1,6 +1,5 @@
 import React from "react";
 import { View, Text, StyleSheet, Button } from "react-native";
-import { } from './styles';
 
 
 export default Home = ({ navigation }) => {

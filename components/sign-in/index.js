@@ -6,14 +6,14 @@ import { signIn } from '../../services/authentication'
 import { AuthContext } from '../../context';
 
 export default ({ navigation }) => {
-  //const { signIn } = React.useContext(AuthContext)
+  const { refreshSignInStatus } = React.useContext(AuthContext)
 
   const [email, setEmail] = React.useState('')
   const [password, setPassword] = React.useState('')
 
   const handleSignIn = () => {
     signIn({ email, password })
-      .then(() => alert('loguei!'))
+      .then(() => refreshSignInStatus())
       .catch(error => alert(error.response.data.msg || 'Erro desconhecido'))
   }
 

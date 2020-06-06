@@ -9,13 +9,10 @@ import api from '../../services/axios';
 import axios from 'axios';
 
 export default function Chat() {
-
   const [user, setUser] = useState(null)
   const [mensagens, setMensagens] = useState([])
   const [caixaTexto, setCaixaTexto] = useState('')
   const [scrollview, setScrollview] = useState('')
-
-
 
   const db = firebase.firestore()
 
@@ -73,11 +70,9 @@ export default function Chat() {
 
   return (
     <View style={styles.view}>
-
       {user &&
         <>
           <TouchableOpacity onPress={carregaUsuarioAnonimo}>
-
             <Image
               style={styles.avatar}
               source={{ uri: user.picture }} />
@@ -85,10 +80,7 @@ export default function Chat() {
 
           <Text style={styles.nome_usuario}>{user.name}</Text>
         </>
-
       }
-
-
 
       <ScrollView style={styles.scrollview} ref={(view) => { setScrollview(view) }}>
         {
@@ -103,18 +95,11 @@ export default function Chat() {
                   :
                   <Text> </Text>
                 }
-
               </View>
-
             </View>
-
-
-
-
           ))
         }
       </ScrollView>
-
 
       <View style={styles.footer}>
         <TextInput
@@ -126,9 +111,6 @@ export default function Chat() {
           <Ionicons style={{ margin: 3 }} name="md-send" size={32} color={'#999'} />
         </TouchableOpacity>
       </View>
-
-
-
     </View>)
 }
 
